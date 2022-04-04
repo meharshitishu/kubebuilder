@@ -238,6 +238,8 @@ func main() {
 	ctrl.SetLogger(zap.New(zap.UseFlagOptions(&opts)))
 
 {{ if not .ComponentConfig }}
+	// Setting LeaderElectionReleaseOnCancel to true prevents main.go 
+	// scripts to close when Manager is done and improves the performance of re-election. 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 scheme,
 		MetricsBindAddress:     metricsAddr,
@@ -245,6 +247,7 @@ func main() {
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
 		LeaderElectionID:       "{{ hashFNV .Repo }}.{{ .Domain }}",
+		LeaderElectionReleaseOnCancel: true,
 	})
 {{- else }}
 	var err error

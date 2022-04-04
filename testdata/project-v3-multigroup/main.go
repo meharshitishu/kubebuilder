@@ -90,13 +90,16 @@ func main() {
 
 	ctrl.SetLogger(zap.New(zap.UseFlagOptions(&opts)))
 
+	// Setting LeaderElectionReleaseOnCancel to true prevents main.go
+	// scripts to close when Manager is done and improves the performance of re-election.
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:                 scheme,
-		MetricsBindAddress:     metricsAddr,
-		Port:                   9443,
-		HealthProbeBindAddress: probeAddr,
-		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "14be1926.testproject.org",
+		Scheme:                        scheme,
+		MetricsBindAddress:            metricsAddr,
+		Port:                          9443,
+		HealthProbeBindAddress:        probeAddr,
+		LeaderElection:                enableLeaderElection,
+		LeaderElectionID:              "14be1926.testproject.org",
+		LeaderElectionReleaseOnCancel: true,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
