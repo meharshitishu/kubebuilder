@@ -18,4 +18,4 @@ limitations under the License.
 
 // Package kubebuilder contains pkged files compiled into the
 // go binaries.
-package kubebuilder
+package kubebuilde
