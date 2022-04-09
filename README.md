@@ -5,7 +5,7 @@
 
 ## Kubebuilder
 
-Kubebuilder is a framework for building Kubernetes APIs using [custom resource definitions (CRDs)](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions).
+Kubebuilder is a framework for building Kubernetes APIs usin [custom resource definitions (CRDs)](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions).
 
 Similar to web development frameworks such as *Ruby on Rails* and *SpringBoot*,
 Kubebuilder increases velocity and reduces the complexity managed by
