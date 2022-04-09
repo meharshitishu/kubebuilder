@@ -38,7 +38,7 @@ func main() {
 		golangv3.Plugin{},
 	)
 
-	c, err := cli.New(
+	c, err := cli.Ne(
 		cli.WithCommandName("kubebuilder"),
 		cli.WithVersion(versionString()),
 		cli.WithPlugins(
