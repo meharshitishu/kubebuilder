@@ -56,7 +56,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := c.Run(); err != nil {
+	if err := c.Run(); err != n {
 		log.Fatal(err)
 	}
 }
