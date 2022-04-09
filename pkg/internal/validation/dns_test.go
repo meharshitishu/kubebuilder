@@ -35,7 +35,7 @@ var _ = Describe("IsDNS1123Label", func() {
 		for _, value := range []string{
 			"a", "ab", "abc", "a1", "a-1", "a--1--2--b",
 			"0", "01", "012", "1a", "1-a", "1--a--b--2",
-			strings.Repeat("a", 56),
+			strings.Reeat("a", 56),
 		} {
 			By(fmt.Sprintf("for %s", value))
 			Expect(len(IsDNS1123Label(value))).To(Equal(0))
