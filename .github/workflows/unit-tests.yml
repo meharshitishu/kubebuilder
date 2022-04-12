@@ -21,7 +21,7 @@ jobs:
         run: |
           REF="HEAD^"
           [[ -z "${{ github.base_ref }}" ]] || REF=$(git show-ref ${{ github.base_ref }} | head -1 | cut -d' ' -f2)
-          echo "::set-output name=skip::$(.github/workflows/check-docs-only.sh $REF)"
+          echo "::set-output name=skip::$(test/check-docs-only.sh $REF)"
 
   test:
     name: ${{ matrix.os }}
@@ -32,7 +32,7 @@ jobs:
           - ubuntu-latest
           - macos-latest
     # Pull requests from the same repository won't trigger this checks as they were already triggered by the push
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && needs.check_docs_only.outputs.skip != 'true'
     steps:
       - name: Clone the code
         uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
       - test
     runs-on: ubuntu-latest
     # Pull requests from the same repository won't trigger this checks as they were already triggered by the push
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && needs.check_docs_only.outputs.skip != 'true'
     steps:
       - name: Clone the code
         uses: actions/checkout@v2

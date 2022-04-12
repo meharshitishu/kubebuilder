@@ -21,13 +21,13 @@ jobs:
         run: |
           REF="HEAD^"
           [[ -z "${{ github.base_ref }}" ]] || REF=$(git show-ref ${{ github.base_ref }} | head -1 | cut -d' ' -f2)
-          echo "::set-output name=skip::$(.github/workflows/check-docs-only.sh $REF)"
+          echo "::set-output name=skip::$(test/check-docs-only.sh $REF)"
 
   go-apidiff:
     name: Verify API differences
     runs-on: ubuntu-latest
     # Pull requests from different repository only trigger this checks
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+    if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository) && needs.check_docs_only.outputs.skip != 'true'
     steps:
       - name: Clone the code
         uses: actions/checkout@v2
