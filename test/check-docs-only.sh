@@ -21,7 +21,7 @@
 set -e
 
 # If running in Github actions: this should be set to "github.base_ref".
-: ${1?"the first argument must be set to a commit-ish reference"}
+: ${1?"github.base_ref"}
 
 # Patterns to ignore.
 declare -a DOC_PATTERNS
